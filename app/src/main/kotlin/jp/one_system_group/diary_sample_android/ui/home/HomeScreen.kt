@@ -1,15 +1,16 @@
+package jp.one_system_group.diary_sample_android.ui.home
+
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import jp.one_system_group.diary_sample.ui.home.DiaryList
-import jp.one_system_group.diary_sample_android.model.Diary
+import jp.one_system_group.diary_sample_android.model.DiaryRow
 
 @ExperimentalMaterialApi
-@Preview
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    diaryList: List<DiaryRow>
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -24,10 +25,7 @@ fun HomeScreen() {
             )
         },
         content = {
-            val diaries = (15 downTo 1).map {
-                Diary("投稿${it}", "2021/01/01")
-            }
-            DiaryList(diaries)
+            DiaryList(diaryList)
         }
     )
 }
