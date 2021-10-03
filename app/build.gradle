@@ -4,7 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdk 30
+    compileSdk 31
 
     sourceSets {
         main.kotlin.srcDirs += 'src/main/kotlin'
@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "jp.one_system_group.diary_sample_android"
         minSdk 23
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -75,6 +75,8 @@ dependencies {
     // hilt
     implementation"com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    // paging
+    implementation "androidx.paging:paging-compose:1.0.0-alpha13"
 
     // Debug
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
@@ -83,6 +85,7 @@ dependencies {
     testImplementation "junit:junit:4.13.2"
     testImplementation"com.google.dagger:hilt-android:$hilt_version"
     kaptTest"com.google.dagger:hilt-android:$hilt_version"
+    testImplementation "androidx.paging:paging-common:$paging_version"
 
     // Instrumented-Unit-Tests
     androidTestImplementation "androidx.test.ext:junit:1.1.3"
