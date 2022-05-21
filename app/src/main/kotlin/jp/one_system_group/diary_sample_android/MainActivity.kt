@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.flowOf
 class MainActivity : ComponentActivity() {
     private val viewModel: DiaryListViewModel by viewModels()
 
-    @ExperimentalMaterialApi
+    @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         drawScreen(viewModel.diaryList)
