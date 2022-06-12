@@ -77,6 +77,10 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     // paging
     implementation "androidx.paging:paging-compose:1.0.0-alpha13"
+    // room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     // Debug
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
@@ -98,3 +102,4 @@ dependencies {
 kapt {
     correctErrorTypes true
 }
+

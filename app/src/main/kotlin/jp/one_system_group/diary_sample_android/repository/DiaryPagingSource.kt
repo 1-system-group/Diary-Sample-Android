@@ -11,10 +11,10 @@ class DiaryPagingSource(
     override suspend fun load(
         params: LoadParams<Int>,
     ): LoadResult<Int, DiaryRow> {
+        // Start refresh at page 1 if undefined.
+        val nextPage = params.key ?: 1
         return try {
-            // Start refresh at page 1 if undefined.
-            val nextPage = params.key ?: 1
-            val response = diaryRepository.getDiaryList(nextPage).body()
+            val response = diaryRepository.getDiaryListFromWeb(nextPage).body()
             LoadResult.Page(
                 data = response!!,
                 // 前ページは無し
@@ -25,7 +25,16 @@ class DiaryPagingSource(
         } catch (e: Exception) {
             // Handle errors in this block and return LoadResult.Error if it is an
             // expected error (such as a network failure).
-            LoadResult.Error(e)
+
+            // ネットワークエラーの場合、DBからデータを取得する
+            val response = diaryRepository.getDiaryListFromDb(nextPage)
+            return LoadResult.Page(
+                data = response,
+                // 前ページは無し
+                prevKey = null,
+                // nextKeyがnullの場合、次ページが存在しない
+                nextKey = if (response.isEmpty()) null else nextPage.plus(1),
+            )
         }
     }
 
