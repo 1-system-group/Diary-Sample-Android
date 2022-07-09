@@ -80,10 +80,8 @@ fun DrawerScreen(
             modifier = Modifier
                 .height(1.dp)
         )
-        var currentRoute = items[2].route
         items.forEach { item ->
-            DrawerItem(item = item, selected = currentRoute == item.route, onItemClick = {
-                currentRoute = item.route
+            DrawerItem(item = item, selected = false, onItemClick = {
                 // Close drawer
                 scope.launch {
                     scaffoldState.drawerState.close()
