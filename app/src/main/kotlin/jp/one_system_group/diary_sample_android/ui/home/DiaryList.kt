@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -17,7 +18,10 @@ import kotlinx.coroutines.flow.Flow
 
 @ExperimentalMaterialApi
 @Composable
-fun DiaryList(diaryList: Flow<PagingData<DiaryRow>>) {
+fun DiaryList(
+    navController: NavHostController,
+    diaryList: Flow<PagingData<DiaryRow>>
+) {
     val lazyDiaryItems = diaryList.collectAsLazyPagingItems()
     LazyColumn {
         items(lazyDiaryItems) { item ->
@@ -25,6 +29,7 @@ fun DiaryList(diaryList: Flow<PagingData<DiaryRow>>) {
                 ListItem(
                     modifier = Modifier.clickable(onClick = {
                         // リストアイテムクリック時の処理
+                        navController.navigate("reference")
                     }),
                     text = { Text(item.title) },
                     secondaryText = { Text(item.postDate) })
