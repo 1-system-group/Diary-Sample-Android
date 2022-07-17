@@ -1,6 +1,7 @@
 package jp.one_system_group.diary_sample_android.api
 
 import jp.one_system_group.diary_sample_android.model.DiaryRow
+import jp.one_system_group.diary_sample_android.model.ReferenceMessage
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -9,4 +10,7 @@ interface WebService {
     // 日記の一覧を取得
     @GET("lists/{page}")
     suspend fun requestDiaryList(@Path("page") page: Int): Response<List<DiaryRow>>
+    // 日記の内容を取得
+    @GET("/id/{id}")
+    suspend fun getReferenceMessage(@Path("id") id : Int): Response<ReferenceMessage>
 }

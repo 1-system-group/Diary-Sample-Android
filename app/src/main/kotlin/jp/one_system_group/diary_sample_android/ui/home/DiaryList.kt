@@ -9,15 +9,21 @@ import androidx.compose.material.ListItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import jp.one_system_group.diary_sample_android.model.DiaryRow
 
 @ExperimentalMaterialApi
 @Composable
-fun DiaryList(diaryList: List<DiaryRow>) {
+fun DiaryList(
+    navController: NavHostController,
+    diaryList: List<DiaryRow>) {
     LazyColumn {
         itemsIndexed(diaryList) { _, item ->
             ListItem(
-                modifier = Modifier.clickable(onClick = {}),
+                modifier = Modifier.clickable(onClick = {
+                    // リストアイテムクリック時の処理
+                    navController.navigate("reference")
+                }),
                 text = { Text(item.title) },
                 secondaryText = { Text(item.postDate) })
             Divider()

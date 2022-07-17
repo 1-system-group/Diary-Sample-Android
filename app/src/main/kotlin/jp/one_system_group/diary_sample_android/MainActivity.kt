@@ -10,6 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Observer
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import jp.one_system_group.diary_sample_android.model.DiaryRow
 import jp.one_system_group.diary_sample_android.ui.home.HomeScreen
@@ -35,8 +36,9 @@ class MainActivity : ComponentActivity() {
     private fun drawScreen(list: List<DiaryRow>) {
         setContent {
             DiarySampleAndroidTheme {
+                val navController = rememberNavController()
                 Surface(color = MaterialTheme.colors.background) {
-                    HomeScreen(list)
+                    HomeScreen(navController, list)
                 }
             }
         }
@@ -52,6 +54,7 @@ fun DefaultPreview() {
         val diaryList = (15 downTo 1).map {
             DiaryRow(it, "投稿${it}", "2021/01/01")
         }
-        HomeScreen(diaryList)
+        val navController = rememberNavController()
+        HomeScreen(navController, diaryList)
     }
 }
