@@ -95,6 +95,7 @@ fun HomeScreen(
                 val viewModel = hiltViewModel<ReferenceMessageViewModel>()
                 val scaffoldState = rememberScaffoldState()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
+
                 val navigationIcon: (@Composable () -> Unit)? =
                     if (navBackStackEntry?.destination?.route != "main") {
                         {
@@ -128,3 +129,6 @@ fun HomeScreen(
         }
     }
 }
+
+
+
