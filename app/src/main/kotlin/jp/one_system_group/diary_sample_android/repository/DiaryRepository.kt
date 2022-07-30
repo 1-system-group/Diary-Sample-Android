@@ -2,16 +2,20 @@ package jp.one_system_group.diary_sample_android.repository
 
 import jp.one_system_group.diary_sample_android.api.WebService
 import jp.one_system_group.diary_sample_android.database.DiaryDao
+import jp.one_system_group.diary_sample_android.model.Diary
 import jp.one_system_group.diary_sample_android.model.DiaryRow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 interface DiaryRepository {
     suspend fun getDiaryListFromWeb(page: Int): Response<List<DiaryRow>>
     suspend fun getDiaryListFromDb(page: Int): List<DiaryRow>
+    fun getDiary(): Flow<Diary>
 }
 
 class DiaryRepositoryImpl @Inject constructor(
@@ -41,5 +45,20 @@ class DiaryRepositoryImpl @Inject constructor(
             val diaries = dao.findByPage(page = page)
             diaries.map { it.toDiaryRow() }
         }
+    }
+
+    override fun getDiary(
+    ) : Flow<Diary> = flow {
+        emit(getDiary(1))
+    }
+
+
+    private suspend fun getDiary(id : Int) : Diary {
+        val response = webService.getDiary(id)
+        if (response.isSuccessful) {
+            return requireNotNull(response.body())
+        }
+        throw Exception()
+//        throw NetworkException(response.code(), response.errorBody().toString())
     }
 }

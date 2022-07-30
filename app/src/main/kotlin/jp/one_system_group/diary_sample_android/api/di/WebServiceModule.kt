@@ -37,7 +37,8 @@ object WebServiceModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit =
         Retrofit.Builder()
-            .baseUrl("") // APIのベースURLを設定する
+            .baseUrl("http://192.168.0.16:8080/") // APIのベースURLを設定する
+//            .baseUrl("") // APIのベースURLを設定する
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

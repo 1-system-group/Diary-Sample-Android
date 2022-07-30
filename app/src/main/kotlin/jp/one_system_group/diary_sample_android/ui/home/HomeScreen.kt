@@ -3,9 +3,7 @@ package jp.one_system_group.diary_sample_android.ui.home
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
@@ -13,15 +11,12 @@ import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.paging.PagingData
 import jp.one_system_group.diary_sample_android.model.DiaryRow
 import jp.one_system_group.diary_sample_android.ui.menu.DrawerScreen
-import jp.one_system_group.diary_sample_android.viewmodel.ReferenceMessageViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -92,39 +87,7 @@ fun HomeScreen(
             )
 
             composable(route = "reference") {
-                val viewModel = hiltViewModel<ReferenceMessageViewModel>()
-                val scaffoldState = rememberScaffoldState()
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-
-                val navigationIcon: (@Composable () -> Unit)? =
-                    if (navBackStackEntry?.destination?.route != "main") {
-                        {
-                            IconButton(onClick = {
-                                navController.popBackStack()
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Outlined.ArrowBack,
-                                    contentDescription = "Back"
-                                )
-                            }
-                        }
-                    } else {
-                        null
-                    }
-
-                Scaffold(
-
-                    scaffoldState = scaffoldState,
-                    topBar = {
-                        TopAppBar(
-                            title = { Text(viewModel.referenceMessage.title) },
-                            navigationIcon = navigationIcon,
-                        )
-                    },
-                    content = {
-                        Text(text = viewModel.referenceMessage.content)
-                    }
-                )
+                DiaryScreen(navController)
             }
         }
     }
