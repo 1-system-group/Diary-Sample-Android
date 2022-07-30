@@ -11,6 +11,6 @@ interface WebService {
     @GET("lists/{page}")
     suspend fun requestDiaryList(@Path("page") page: Int): Response<List<DiaryRow>>
     // 日記の内容を取得
-    @GET("/id/{id}")
+    @GET("/diary/{id}")
     suspend fun getDiary(@Path("id") id : Int): Response<Diary>
 }
