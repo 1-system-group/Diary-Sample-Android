@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.one_system_group.diary_sample_android.model.Diary
-import jp.one_system_group.diary_sample_android.repository.*
-import kotlinx.coroutines.flow.*
+import jp.one_system_group.diary_sample_android.repository.DiaryRepository
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,13 +15,9 @@ class DiaryViewModel @Inject constructor(
 ): ViewModel() {
     var diary : Diary = Diary("","")
 
-    init {
-        getDiary()
-    }
-
-    private fun getDiary() {
+    fun getDiary(id : Int) {
         viewModelScope.launch {
-            repository.getDiary().collect() {
+            repository.getDiary(id).collect() {
                 diary = it
             }
         }

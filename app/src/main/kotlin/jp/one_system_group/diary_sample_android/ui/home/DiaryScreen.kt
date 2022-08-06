@@ -12,11 +12,14 @@ import jp.one_system_group.diary_sample_android.viewmodel.DiaryViewModel
 
 @Composable
 fun DiaryScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    id : Int
 ) {
     val viewModel = hiltViewModel<DiaryViewModel>()
     val scaffoldState = rememberScaffoldState()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+    viewModel.getDiary(id)
 
     val navigationIcon: (@Composable () -> Unit)? =
         if (navBackStackEntry?.destination?.route != "main") {
