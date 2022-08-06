@@ -12,8 +12,10 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.paging.PagingData
 import jp.one_system_group.diary_sample_android.model.DiaryRow
 import jp.one_system_group.diary_sample_android.ui.menu.DrawerScreen
@@ -85,10 +87,17 @@ fun HomeScreen(
                     }
                 }
             )
-
-            composable(route = "reference") {
-                DiaryScreen(navController)
+        }
+        composable(route = "reference/{id}",
+            arguments = listOf(
+                navArgument("id") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getInt("id") ?: -1
+            if (id == -1) {
+                Exception()
             }
+            DiaryScreen(navController, id)
         }
     }
 }

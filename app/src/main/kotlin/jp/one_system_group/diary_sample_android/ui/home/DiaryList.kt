@@ -29,7 +29,7 @@ fun DiaryList(
                 ListItem(
                     modifier = Modifier.clickable(onClick = {
                         // リストアイテムクリック時の処理
-                        navController.navigate("reference")
+                        navController.navigate("reference/" + item.id)
                     }),
                     text = { Text(item.title) },
                     secondaryText = { Text(item.postDate) })
