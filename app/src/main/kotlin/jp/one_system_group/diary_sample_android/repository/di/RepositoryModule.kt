@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import jp.one_system_group.diary_sample_android.api.WebService
+import jp.one_system_group.diary_sample_android.database.DiaryDao
 import jp.one_system_group.diary_sample_android.repository.DiaryRepository
 import jp.one_system_group.diary_sample_android.repository.DiaryRepositoryImpl
 import javax.inject.Singleton
@@ -15,8 +16,9 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideDiaryRepository(
-        webService: WebService
+        webService: WebService,
+        dao : DiaryDao
     ): DiaryRepository {
-        return DiaryRepositoryImpl(webService)
+        return DiaryRepositoryImpl(webService, dao)
     }
 }
