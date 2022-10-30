@@ -10,6 +10,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
+import java.lang.Exception
 import javax.inject.Inject
 
 interface DiaryRepository {
@@ -67,10 +68,14 @@ class DiaryRepositoryImpl @Inject constructor(
         }
 
         // APIから取得できなかったららDBから取得する
-        var diary = Diary(-1,"", "")
+        var diary = Diary(-1,"エラー", "日記が見つかりませんでした")
         runBlocking {
             withContext(Dispatchers.IO) {
-                diary = daoContent.findContentById(id).toDiary()
+                // 例外が発生しても日記の表示処理を続ける
+                try {
+                    diary = daoContent.findContentById(id).toDiary()
+                } catch (e: Exception) {
+                }
             }
         }
         return diary

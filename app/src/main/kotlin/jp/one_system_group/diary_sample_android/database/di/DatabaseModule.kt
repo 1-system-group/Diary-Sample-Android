@@ -19,18 +19,7 @@ class DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ) = Room.databaseBuilder(context, AppDatabase::class.java, "DiarySample.db")
-        .addMigrations(object: Migration(1, 2){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(
-                "CREATE TABLE diaryContent (" +
-                        " id INTEGER PRIMARY KEY NOT NULL, " +
-                        " title TEXT NOT NULL, " +
-                        " content TEXT NOT NULL" +
-                        ");")
-            }
-        })
-        .build()
+    ) = Room.databaseBuilder(context, AppDatabase::class.java, "DiarySample.db").build()
 
     @Singleton
     @Provides
