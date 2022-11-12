@@ -2,6 +2,8 @@ package jp.one_system_group.diary_sample_android.database.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,4 +24,8 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideDao(db: AppDatabase) = db.diaryDao()
+
+    @Singleton
+    @Provides
+    fun provideDaoContent(db: AppDatabase) = db.diaryContentDao()
 }

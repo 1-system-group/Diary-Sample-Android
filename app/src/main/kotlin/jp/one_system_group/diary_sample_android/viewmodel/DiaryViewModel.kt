@@ -13,7 +13,7 @@ import javax.inject.Inject
 class DiaryViewModel @Inject constructor(
     private val repository: DiaryRepository,
 ): ViewModel() {
-    var diary : Diary = Diary("","")
+    var diary : Diary = Diary(-1,"", "")
 
     fun getDiary(id : Int) {
         viewModelScope.launch {
