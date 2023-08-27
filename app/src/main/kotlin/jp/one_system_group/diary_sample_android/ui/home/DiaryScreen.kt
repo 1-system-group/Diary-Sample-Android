@@ -13,7 +13,7 @@ import jp.one_system_group.diary_sample_android.viewmodel.DiaryViewModel
 @Composable
 fun DiaryScreen(
     navController: NavHostController,
-    id : Int
+    id: Int
 ) {
     val viewModel = hiltViewModel<DiaryViewModel>()
     val scaffoldState = rememberScaffoldState()

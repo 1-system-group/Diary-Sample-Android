@@ -21,8 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import jp.one_system_group.diary_sample_android.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -35,9 +33,8 @@ sealed class DrawerListItem(val route: String, val title: String, val icon: Imag
 
 @Composable
 fun DrawerScreen(
-    scope: CoroutineScope,
     scaffoldState: ScaffoldState,
-    navController: NavController
+    scope: CoroutineScope,
 ) {
     val items = listOf(
         DrawerListItem.Favorite,
@@ -96,6 +93,5 @@ fun DrawerScreen(
 fun DrawerPreview() {
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
-    val navController = rememberNavController()
-    DrawerScreen(scope = scope, scaffoldState = scaffoldState, navController = navController)
+    DrawerScreen(scope = scope, scaffoldState = scaffoldState)
 }
