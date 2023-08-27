@@ -1,10 +1,12 @@
 package jp.one_system_group.diary_sample_android.ui.auth
 
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import jp.one_system_group.diary_sample_android.auth.TopLevel
 import jp.one_system_group.diary_sample_android.ui.auth.component.AuthEmail
 import jp.one_system_group.diary_sample_android.ui.auth.component.AuthLogin
@@ -15,7 +17,7 @@ import jp.one_system_group.diary_sample_android.ui.theme.DiarySampleAndroidTheme
 @ExperimentalMaterialApi
 @Composable
 fun AuthScreen(
-    navController: NavHostController,
+    loginProcess: (String, String) -> Unit,
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -31,9 +33,7 @@ fun AuthScreen(
             onValueChange = { newValue -> password = newValue },
         )
         AuthLogin(
-            onClick = {
-                navController.navigate("main")
-            }
+            onClick = { loginProcess(email, password) },
         )
     }
 }
@@ -43,10 +43,7 @@ fun AuthScreen(
 @Composable
 fun Preview() {
     // Jetpack Composeで表示する用のメソッド
-    val navController = rememberNavController()
     DiarySampleAndroidTheme {
-        AuthScreen(
-            navController
-        )
+        AuthScreen { _, _ -> }
     }
 }

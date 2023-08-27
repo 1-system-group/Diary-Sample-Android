@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.Flow
 @Composable
 fun HomeScreen(
     navController: NavHostController,
+    loginProcess: (String, String) -> Unit,
     diaryList: Flow<PagingData<DiaryRow>>,
 ) {
 
@@ -23,9 +24,10 @@ fun HomeScreen(
         navController = navController,
         startDestination = "auth"
     ) {
+
         // 認証画面
         composable(route = "auth") {
-            AuthScreen(navController)
+            AuthScreen(loginProcess)
         }
         // 日記一覧画面
         composable(route = "main") {
